@@ -18,7 +18,7 @@ public class Main extends Application {
 			VBox root = loader.load(new FileInputStream("src/application/HomeScreen.fxml"));
 			Scene scene = new Scene(root,400,400);
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("Application Test");
+			primaryStage.setTitle("Application");
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
