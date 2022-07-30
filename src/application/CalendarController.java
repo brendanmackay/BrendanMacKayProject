@@ -29,18 +29,7 @@ public class CalendarController {
 	@FXML
 	private AnchorPane rootPane;
 	
-    @FXML
-    void changeScene(ActionEvent event) {
-    	Scene mainScene = applicationStage.getScene();
-    	VBox rows = new VBox();
-    	Button doneButton = new Button("Done");
-    	doneButton.setOnAction(doneEvent -> applicationStage.setScene(mainScene));
-    	rows.getChildren().add(doneButton);
-    	Scene calendarInfoScene = new Scene(rows);
-    	applicationStage.setScene(calendarInfoScene);
-    	System.out.println("Button Pressed"); 
-    }
-    
+
     public void switchHomeScreen(ActionEvent event) throws IOException {
 	    Parent root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
 		applicationStage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -66,6 +55,30 @@ public class CalendarController {
     @FXML
     void getNewCalendarInfo(ActionEvent event) throws IOException {
     	AnchorPane pane = FXMLLoader.load(getClass().getResource("CreateCalendar.fxml"));
+    	rootPane.getChildren().setAll(pane);
+    }
+    
+    @FXML
+    void editCalendarInfo(ActionEvent event) throws IOException {
+    	AnchorPane pane = FXMLLoader.load(getClass().getResource("EditCalendar.fxml"));
+    	rootPane.getChildren().setAll(pane);
+    }
+    
+    @FXML
+    void individualCalendarView(ActionEvent event) throws IOException {
+    	AnchorPane pane = FXMLLoader.load(getClass().getResource("IndividualCalendarView.fxml"));
+    	rootPane.getChildren().setAll(pane);
+    }
+    
+    @FXML
+    void comparisonCalendarView(ActionEvent event) throws IOException {
+    	AnchorPane pane = FXMLLoader.load(getClass().getResource("ComparisonCalendarView.fxml"));
+    	rootPane.getChildren().setAll(pane);
+    }
+    
+    @FXML
+    void combinedCalendarView(ActionEvent event) throws IOException {
+    	AnchorPane pane = FXMLLoader.load(getClass().getResource("CombinedCalendarView.fxml"));
     	rootPane.getChildren().setAll(pane);
     }
     

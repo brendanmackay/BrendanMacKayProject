@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="application.CalendarController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="215.0">
+         <children>
+            <Label prefHeight="17.0" prefWidth="238.0" text="Build Individual View" />
+            <Button mnemonicParsing="false" onAction="#switchHomeScreen" text="Button" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

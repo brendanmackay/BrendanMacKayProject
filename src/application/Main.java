@@ -19,7 +19,7 @@ public class Main extends Application {
 			Parent root = loader.load(new FileInputStream("src/application/HomeScreen.fxml"));
 			CalendarController controller = (CalendarController)loader.getController();
 			controller.setApplicationStage(primaryStage);
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Application");
 			primaryStage.show();
