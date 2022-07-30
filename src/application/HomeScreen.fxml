@@ -5,11 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CalendarController">
    <children>
-      <Button mnemonicParsing="false" text="Button 1" />
-      <Button mnemonicParsing="false" text="Button 2" />
-      <Button mnemonicParsing="false" text="Button 3" />
-      <Label text="Label" />
+      <Button mnemonicParsing="false" onAction="#createNewCalendar" text="Create New Calendar" />
    </children>
 </VBox>
