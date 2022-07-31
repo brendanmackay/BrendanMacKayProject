@@ -7,11 +7,13 @@
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CalendarController">
    <children>
-      <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+      <VBox layoutX="8.0" layoutY="8.0" prefHeight="383.0" prefWidth="585.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#changeScene" text="Change Scene" />
             <Button mnemonicParsing="false" onAction="#getNewCalendarInfo" text="Create New Calendar" />
-            
+            <Button mnemonicParsing="false" onAction="#editCalendarInfo" text="Edit Calendar" />
+            <Button mnemonicParsing="false" onAction="#individualCalendarView" text="Individual View" />
+            <Button mnemonicParsing="false" onAction="#comparisonCalendarView" text="Comparison View" />
+            <Button mnemonicParsing="false" onAction="#combinedCalendarView" text="Combined View" />
          </children>
       </VBox>
    </children>
