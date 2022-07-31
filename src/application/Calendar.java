@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 public class Calendar {
+	private int nums;
 	private ArrayList<Events> events;
 
 	public ArrayList<Events> getEvents() {
