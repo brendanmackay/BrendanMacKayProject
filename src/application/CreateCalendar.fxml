@@ -12,16 +12,10 @@
             <HBox prefHeight="25.0" prefWidth="300.0">
                <children>
                   <Label prefHeight="17.0" prefWidth="228.0" text="Calendar Name:" />
-                  <TextField />
+                  <TextField fx:id="calendarNameTextField" />
                </children>
             </HBox>
-            <HBox prefHeight="25.0" prefWidth="300.0">
-               <children>
-                  <Label prefHeight="17.0" prefWidth="228.0" text="Number of Days:" />
-                  <TextField />
-               </children>
-            </HBox>
-            <Button mnemonicParsing="false" onAction="#switchHomeScreen" text="Create New Calendar" />
+            <Button mnemonicParsing="false" onAction="#addNewCalendarInfo" text="Create New Calendar" />
          </children>
       </VBox>
    </children>
