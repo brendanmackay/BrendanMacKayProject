@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -17,13 +19,14 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
 public class CalendarController {
 	private Stage applicationStage;
 	private Scene scene;
-	private ArrayList<BasicCalendar> calendars = new ArrayList<BasicCalendar>();
+	private ObservableList<BasicCalendar> calendars = FXCollections.observableArrayList();
 	private BasicCalendar oneCalendar = new BasicCalendar("SKIING");
 	
 	@FXML
@@ -41,50 +44,55 @@ public class CalendarController {
 	@FXML
 	ListView<BasicEvent> listViewIndividual;
 	
+	@FXML
+	ListView<BasicCalendar> listViewCalendarsHome;
 	
-
+	@FXML
+	VBox calendarNamesVBox;
+	
+	@FXML
+	TextField newCalendarName;
+    
+    @FXML
+    void addNewCalendar(ActionEvent event) throws IOException {
+    	calendars.add(new BasicCalendar(newCalendarName.getText()));
+    	listViewCalendarsHome.setItems(calendars);
+    	newCalendarName.setText(null);
+    }
+    
     public void switchHomeScreen(ActionEvent event) throws IOException {
+    	System.out.println(calendars);
 	    Parent root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
 		applicationStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		applicationStage.setScene(scene);
 		applicationStage.show();
+		System.out.println(calendars);
 		// code from https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
     }
     
-
-    public void addNewCalendarInfo(ActionEvent event) throws IOException {
-    	calendars.add(new BasicCalendar(calendarNameTextField.getText()));
-    	switchHomeScreen(event);
-    }
-     
     @FXML
-    void getNewCalendarInfo(ActionEvent event) throws IOException {
-    	AnchorPane pane = FXMLLoader.load(getClass().getResource("CreateCalendar.fxml"));
+    void switchEditCalendarView(ActionEvent event) throws IOException {
+    	AnchorPane pane = FXMLLoader.load(getClass().getResource("EditCalendarView.fxml"));
     	rootPane.getChildren().setAll(pane);
     }
     
     @FXML
-    void editCalendarInfo(ActionEvent event) throws IOException {
-    	AnchorPane pane = FXMLLoader.load(getClass().getResource("EditCalendar.fxml"));
-    	rootPane.getChildren().setAll(pane);
-    }
-    
-    @FXML
-    void individualCalendarView(ActionEvent event) throws IOException {
+    void switchIndividualCalendarView(ActionEvent event) throws IOException {
     	AnchorPane pane = FXMLLoader.load(getClass().getResource("IndividualCalendarView.fxml"));
     	rootPane.getChildren().setAll(pane);
+    	
     	 // datePicker.setValue(LocalDate.now()); // from https://www.youtube.com/watch?v=9uubyM6oHAY&ab_channel=today%27sIT
     }
     
     @FXML
-    void comparisonCalendarView(ActionEvent event) throws IOException {
+    void switchComparisonCalendarView(ActionEvent event) throws IOException {
     	AnchorPane pane = FXMLLoader.load(getClass().getResource("ComparisonCalendarView.fxml"));
     	rootPane.getChildren().setAll(pane);
     }
     
     @FXML
-    void combinedCalendarView(ActionEvent event) throws IOException {
+    void switchCombinedCalendarView(ActionEvent event) throws IOException {
     	AnchorPane pane = FXMLLoader.load(getClass().getResource("CombinedCalendarView.fxml"));
     	rootPane.getChildren().setAll(pane);
     }
