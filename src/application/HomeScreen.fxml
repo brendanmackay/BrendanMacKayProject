@@ -7,14 +7,29 @@
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CalendarController">
    <children>
-      <VBox layoutX="8.0" layoutY="8.0" prefHeight="383.0" prefWidth="585.0">
+      <HBox layoutX="8.0" layoutY="8.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#getNewCalendarInfo" text="Create New Calendar" />
-            <Button mnemonicParsing="false" onAction="#editCalendarInfo" text="Edit Calendar" />
-            <Button mnemonicParsing="false" onAction="#individualCalendarView" text="Individual View" />
-            <Button mnemonicParsing="false" onAction="#comparisonCalendarView" text="Comparison View" />
-            <Button mnemonicParsing="false" onAction="#combinedCalendarView" text="Combined View" />
+            <VBox layoutX="8.0" layoutY="8.0" prefHeight="400.0" prefWidth="290.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#addNewCalendar" text="Create New Calendar" />
+                        <TextField fx:id="newCalendarName" promptText="Enter Calendar Name" />
+                     </children>
+                  </HBox>
+                  <Button mnemonicParsing="false" onAction="#switchEditCalendarView" text="Edit Calendar" />
+                  <Button mnemonicParsing="false" onAction="#switchIndividualCalendarView" text="Individual View" />
+                  <Button mnemonicParsing="false" onAction="#switchComparisonCalendarView" text="Comparison View" />
+                  <Button mnemonicParsing="false" onAction="#switchCombinedCalendarView" text="Combined View" />
+               </children>
+            </VBox>
+            <VBox fx:id="calendarNamesVBox" prefHeight="400.0" prefWidth="152.0">
+               <children>
+                  <Label text="Calendars" />
+                  <ListView fx:id="listViewCalendarsHome" prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </VBox>
          </children>
-      </VBox>
+      </HBox>
    </children>
 </AnchorPane>
