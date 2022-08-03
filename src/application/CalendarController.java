@@ -15,7 +15,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -27,7 +29,6 @@ public class CalendarController {
 	private Stage applicationStage;
 	private Scene scene;
 	private ObservableList<BasicCalendar> calendars = FXCollections.observableArrayList();
-	private BasicCalendar oneCalendar = new BasicCalendar("SKIING");
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -39,6 +40,12 @@ public class CalendarController {
 	TextField descriptionTextFieldIndividual;
 	
 	@FXML
+	TextField descriptionTextFieldHome;
+	
+	@FXML
+	DatePicker datePickerHomeView;
+	
+	@FXML
 	DatePicker datePickerIndividualView;
 	
 	@FXML
@@ -48,69 +55,55 @@ public class CalendarController {
 	ListView<BasicCalendar> listViewCalendarsHome;
 	
 	@FXML
-	VBox calendarNamesVBox;
+	ListView<BasicEvent> listViewEventsHome;
 	
 	@FXML
 	TextField newCalendarName;
+	
+	@FXML
+	Label numberOfEventsLabel;
+	
+	@FXML
+	ChoiceBox<String> calendarChoiceBox;
     
     @FXML
     void addNewCalendar(ActionEvent event) throws IOException {
-    	calendars.add(new BasicCalendar(newCalendarName.getText()));
-    	listViewCalendarsHome.setItems(calendars);
-    	newCalendarName.setText(null);
+    	if (newCalendarName.getText() == null);
+    	else if (newCalendarName.getText() == "");
+    	else {
+    		calendars.add(new BasicCalendar(newCalendarName.getText()));
+    		listViewCalendarsHome.setItems(calendars);
+    		newCalendarName.setText(null);
+    	}
     }
     
     public void switchHomeScreen(ActionEvent event) throws IOException {
-    	System.out.println(calendars);
 	    Parent root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
 		applicationStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		applicationStage.setScene(scene);
 		applicationStage.show();
-		System.out.println(calendars);
 		// code from https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
-    }
-    
-    @FXML
-    void switchEditCalendarView(ActionEvent event) throws IOException {
-    	AnchorPane pane = FXMLLoader.load(getClass().getResource("EditCalendarView.fxml"));
-    	rootPane.getChildren().setAll(pane);
     }
     
     @FXML
     void switchIndividualCalendarView(ActionEvent event) throws IOException {
     	AnchorPane pane = FXMLLoader.load(getClass().getResource("IndividualCalendarView.fxml"));
     	rootPane.getChildren().setAll(pane);
-    	
-    	 // datePicker.setValue(LocalDate.now()); // from https://www.youtube.com/watch?v=9uubyM6oHAY&ab_channel=today%27sIT
+    	// from https://www.youtube.com/watch?v=9uubyM6oHAY&ab_channel=today%27sIT
     }
     
-    @FXML
-    void switchComparisonCalendarView(ActionEvent event) throws IOException {
-    	AnchorPane pane = FXMLLoader.load(getClass().getResource("ComparisonCalendarView.fxml"));
-    	rootPane.getChildren().setAll(pane);
+    private void refresh() { // code from https://www.youtube.com/watch?v=9uubyM6oHAY&ab_channel=today%27sIT
+    	datePickerHomeView.setValue(LocalDate.now());
+    	descriptionTextFieldHome.setText(null);
     }
-    
-    @FXML
-    void switchCombinedCalendarView(ActionEvent event) throws IOException {
-    	AnchorPane pane = FXMLLoader.load(getClass().getResource("CombinedCalendarView.fxml"));
-    	rootPane.getChildren().setAll(pane);
-    }
-    
-    /**
-     * code from from https://www.youtube.com/watch?v=9uubyM6oHAY&ab_channel=today%27sIT
-     */
-    private void refresh() {
-    	datePickerIndividualView.setValue(LocalDate.now());
-    	descriptionTextFieldIndividual.setText(null);
-    }
-    
     
     @FXML
     void addEvent(ActionEvent event) {
-    	oneCalendar.addEvents(new BasicEvent(datePickerIndividualView.getValue(), descriptionTextFieldIndividual.getText()));
-    	listViewIndividual.setItems(oneCalendar.getEvents());
-    	refresh(); // code from code from from https://www.youtube.com/watch?v=9uubyM6oHAY&ab_channel=today%27sIT
+    	calendars.get(0).addEvents(new BasicEvent(datePickerHomeView.getValue(), descriptionTextFieldHome.getText()));
+    	listViewEventsHome.setItems(calendars.get(0).getEvents());
+    	refresh(); // code from code from https://www.youtube.com/watch?v=9uubyM6oHAY&ab_channel=today%27sIT
+    	numberOfEventsLabel.setText(Integer.toString(calendars.get(0).getEvents().size()));
     }
     
     public Stage getApplicationStage() {

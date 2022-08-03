@@ -16,8 +16,7 @@ public class BasicCalendar {
 	}
 
 	public String toString() {
-		return "Name: " + name; 
-		
+		return name; 
 	}
 
 	public void addEvents(BasicEvent event) {

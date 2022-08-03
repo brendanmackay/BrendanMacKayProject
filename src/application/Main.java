@@ -17,9 +17,14 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
+			
+			// CalendarData data = new CalendarData();
+	        // CalendarController calendarController = new CalendarController();
+			// calendarController.initModel(data);
+	        
+	        
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("Calendar");
 			primaryStage.show();
 			
 		} catch(Exception e) {
