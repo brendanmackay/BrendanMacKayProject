@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -9,7 +10,7 @@
    <children>
       <HBox layoutX="8.0" layoutY="8.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox layoutX="8.0" layoutY="8.0" prefHeight="400.0" prefWidth="290.0">
+            <VBox layoutX="8.0" layoutY="8.0" prefHeight="400.0" prefWidth="279.0">
                <children>
                   <HBox>
                      <children>
@@ -17,16 +18,44 @@
                         <TextField fx:id="newCalendarName" promptText="Enter Calendar Name" />
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" onAction="#switchEditCalendarView" text="Edit Calendar" />
-                  <Button mnemonicParsing="false" onAction="#switchIndividualCalendarView" text="Individual View" />
-                  <Button mnemonicParsing="false" onAction="#switchComparisonCalendarView" text="Comparison View" />
-                  <Button mnemonicParsing="false" onAction="#switchCombinedCalendarView" text="Combined View" />
+                  <HBox prefHeight="21.0" prefWidth="290.0">
+               		  <children>
+                  		  <Button mnemonicParsing="false" onAction="#addEvent" text="Add Event" />
+                		  <TextField fx:id="descriptionTextFieldHome" prefHeight="25.0" prefWidth="207.0" promptText="Description" />
+               		    </children>
+          		  </HBox>
+           		  <DatePicker fx:id="datePickerHomeView" promptText="Date" />
+                   <Button mnemonicParsing="false" onAction="#switchIndividualCalendarView" text="Individual View">
+                     <VBox.margin>
+                        <Insets bottom="80.0" left="80.0" right="80.0" top="80.0" />
+                     </VBox.margin></Button>
                </children>
             </VBox>
-            <VBox fx:id="calendarNamesVBox" prefHeight="400.0" prefWidth="152.0">
+            <VBox prefHeight="400.0" prefWidth="90.0">
                <children>
-                  <Label text="Calendars" />
+                  <HBox prefHeight="25.0" prefWidth="152.0">
+                     <children>
+                        <Label text="Calendars" />
+                     </children>
+                  </HBox>
                   <ListView fx:id="listViewCalendarsHome" prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+            <VBox prefHeight="400.0" prefWidth="201.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <Label text="Events: " />
+                        <ChoiceBox fx:id="calendarChoiceBox" prefHeight="25.0" prefWidth="118.0" />
+                     </children>
+                  </HBox>
+                  <ListView fx:id="listViewEventsHome" prefHeight="200.0" prefWidth="200.0" />
+                  <HBox prefHeight="14.0" prefWidth="158.0">
+                     <children>
+                        <Label text="Number of Events: " />
+                        <Label fx:id="numberOfEventsLabel" text="0" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>
