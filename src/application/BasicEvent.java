@@ -8,7 +8,7 @@ public class BasicEvent {
 	private LocalDate date;
 	
 	public BasicEvent(LocalDate date, String description) {
-		setDate(date);
+		if (date != null) setDate(date);
 		setDescription(description);
 	}
 	
@@ -26,6 +26,13 @@ public class BasicEvent {
 	}
 	
 	public String toString() {
-		return "On " + this.date + " do " + description;
+		String string;
+		if (date == null) {
+			string = description;
+		}
+		else {
+			string = description + " on " + date;
+		}
+		return string;
 	}
 }
