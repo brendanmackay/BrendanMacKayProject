@@ -14,17 +14,22 @@
                <children>
                   <HBox>
                      <children>
-                        <Button mnemonicParsing="false" onAction="#addNewCalendar" text="Create New Calendar" />
+                        <Button mnemonicParsing="false" onAction="#createNewCalendar" text="Create New Calendar" />
                         <TextField fx:id="newCalendarName" promptText="Enter Calendar Name" />
                      </children>
                   </HBox>
                   <HBox prefHeight="21.0" prefWidth="290.0">
                		  <children>
                   		  <Button mnemonicParsing="false" onAction="#addEvent" text="Add Event" />
-                		  <TextField fx:id="descriptionTextFieldHome" prefHeight="25.0" prefWidth="207.0" promptText="Description" />
+                        <VBox>
+                           <children>
+                      		  <TextField fx:id="descriptionTextField" prefHeight="25.0" prefWidth="207.0" promptText="Description" />
+                       		  <DatePicker fx:id="datePickerHomeView" prefHeight="25.0" prefWidth="207.0" promptText="Date" />
+                           </children>
+                        </VBox>
                		    </children>
           		  </HBox>
-           		  <DatePicker fx:id="datePickerHomeView" promptText="Date" />
+                  <Label fx:id="errorLabel" textFill="#f80000" />
                    <Button mnemonicParsing="false" onAction="#switchIndividualCalendarView" text="Individual View">
                      <VBox.margin>
                         <Insets bottom="80.0" left="80.0" right="80.0" top="80.0" />
@@ -38,18 +43,18 @@
                         <Label text="Calendars" />
                      </children>
                   </HBox>
-                  <ListView fx:id="listViewCalendarsHome" prefHeight="200.0" prefWidth="200.0" />
+                  <ListView fx:id="listViewCalendarsHome" editable="true" prefHeight="200.0" prefWidth="200.0" />
                </children>
             </VBox>
-            <VBox prefHeight="400.0" prefWidth="201.0">
+            <VBox prefHeight="400.0" prefWidth="213.0">
                <children>
                   <HBox>
                      <children>
-                        <Label text="Events: " />
-                        <ChoiceBox fx:id="calendarChoiceBox" prefHeight="25.0" prefWidth="118.0" />
+                        <Label text="Select Calendar:  " />
+                        <ChoiceBox fx:id="calendarChoiceBox" prefHeight="25.0" prefWidth="122.0" />
                      </children>
                   </HBox>
-                  <ListView fx:id="listViewEventsHome" prefHeight="200.0" prefWidth="200.0" />
+                  <ListView fx:id="listViewEventsHome" editable="true" prefHeight="200.0" prefWidth="200.0" />
                   <HBox prefHeight="14.0" prefWidth="158.0">
                      <children>
                         <Label text="Number of Events: " />
