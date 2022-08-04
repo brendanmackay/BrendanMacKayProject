@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class FileIO {
 	
+// from https://www.w3schools.com/java/java_files_read.asp
+	
 	public String readFile(String filePath) {
 		String fileContent = "";
 		try {
@@ -23,6 +25,8 @@ public class FileIO {
 		    }
 	return fileContent;	
 	}
+	
+	
 	
 	public void writeFile(String fileContent, String fileName) {
 		try {

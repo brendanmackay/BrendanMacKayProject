@@ -29,12 +29,25 @@ import javafx.stage.Stage;
 import javafx.beans.value.*;
 
 
-public class CalendarController {
+public class CalendarController implements Initializable {
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		listViewCalendars.setItems(calendars);
+		calendarChoiceBox.setItems(calendars);
+		deleteCalendarChoiceBox.setItems(calendars);
+	}   
 	
 	private Stage applicationStage;
 	private Scene scene;
 	
-	private ObservableList<BasicCalendar> calendars = FXCollections.observableArrayList();
+	// Load from database textfile
+	private CalendarList calendarList = new CalendarList("src\\application\\database.txt");
+	
+	//store data loaded from database into calendars instance of calendarList
+	private ObservableList<BasicCalendar> calendars = calendarList.getCalendars();
+	
+	// create variable that keeps track of which calendar events are being displayed
 	private BasicCalendar displayedCalendar = new BasicCalendar();
 	
 	// Nodes in Individual view fxml
@@ -76,6 +89,7 @@ public class CalendarController {
     		calendarChoiceBox.getSelectionModel().select(calendars.size()-1);
     		displayedCalendar = calendars.get(calendars.size()-1);
     		currentCalendarLabel.setText(displayedCalendar.getName());
+    		calendarList.saveDataBase();
     		// System.out.println(displayedCalendar);
     	}
     }
@@ -102,18 +116,19 @@ public class CalendarController {
     	else if (descriptionTextField.getText() == "") {
     		errorLabel.setText("Enter an event description");
     	}
+    	else if (listViewEvents.getItems() == null);
+    	else if (displayedCalendar.getName() == null) {
+    		errorLabel.setText("Choose a calendar to add the event");
+    	}
     	else {
+    		System.out.println(displayedCalendar.getName());
     		errorLabel.setText("");
     		listViewEvents.getItems().add(new BasicEvent(descriptionTextField.getText(), datePickerHomeView.getValue()));
-    		
-	    	//calendars.get(calendarChoiceBox.getSelectionModel().getSelectedIndex()).addEvents(
-	    		//	new BasicEvent(descriptionTextField.getText(), datePickerHomeView.getValue()));
-    		
-	    	// listViewEvents.setItems(calendars.get(calendarChoiceBox.getSelectionModel().getSelectedIndex()).getEvents());
-	    	deleteEventChoiceBox.setItems(calendars.get(calendarChoiceBox.getSelectionModel().getSelectedIndex()).getEvents());
+    		deleteEventChoiceBox.setItems(calendars.get(calendarChoiceBox.getSelectionModel().getSelectedIndex()).getEvents());
 	    	descriptionTextField.setText("");
 	    	datePickerHomeView.setValue(null);
 	    	numberOfEventsLabel.setText(Integer.toString(calendars.get(0).getEvents().size()));
+	    	calendarList.saveDataBase();
     	}
     }
     
@@ -124,6 +139,7 @@ public class CalendarController {
     	else {
     		listViewEvents.getItems().remove(deleteEventChoiceBox.getSelectionModel().getSelectedIndex());
     		deleteEventChoiceBox.setValue(null);
+    		calendarList.saveDataBase();
     	}
     }
     
@@ -142,6 +158,7 @@ public class CalendarController {
     		listViewCalendars.setItems(calendars);
     		deleteCalendarChoiceBox.setItems(calendars);
     		deleteCalendarChoiceBox.setValue(null);
+    		calendarList.saveDataBase();
     	}
     }
     
@@ -172,7 +189,10 @@ public class CalendarController {
     	AnchorPane pane = FXMLLoader.load(getClass().getResource("IndividualCalendarView.fxml"));
     	rootPane.getChildren().setAll(pane);
     	// from https://www.youtube.com/watch?v=9uubyM6oHAY&ab_channel=today%27sIT
-    }   
+    }
+
+
+	
 }
 
 

@@ -90,7 +90,7 @@
                   </HBox>
                   <HBox>
                      <children>
-                        <Button mnemonicParsing="false" onAction="#selectCalendar" text="Change Calendar" />
+                        <Button mnemonicParsing="false" onAction="#selectCalendar" prefHeight="25.0" prefWidth="109.0" text="Select Calendar" />
                         <ChoiceBox fx:id="calendarChoiceBox" prefHeight="25.0" prefWidth="122.0" />
                      </children>
                   </HBox>
