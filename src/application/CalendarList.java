@@ -8,10 +8,19 @@ import javafx.collections.ObservableList;
 
 public class CalendarList {
 	private ObservableList<BasicCalendar> calendars = FXCollections.observableArrayList();
-    
-	CalendarList(ObservableList<BasicCalendar> calendars){
-		this.setCalendars(calendars);
+	
+	
+	CalendarList (String filePath) {
+		FileIO fileIO = new FileIO();
+		toCalendars(fileIO.readFile(filePath));
 	}
+	
+	
+	CalendarList ( ObservableList<BasicCalendar> calendars) {
+		this.calendars = calendars;
+	}
+    
+	
 	
 	public String toText() {
 		String text = "";
@@ -26,7 +35,7 @@ public class CalendarList {
 		return text;	
 	}
 	
-	public void toCalendars(String text) {
+	public void toCalendars(String text) { // take inputted string from text file and populate calendars
 		String[] calendarList = text.split("\\+");
 		int counter = 0;
 		for (String calendar : calendarList) {
@@ -46,10 +55,13 @@ public class CalendarList {
 		}
 	}
 
-
-	/* public ObservableList<BasicCalendar> getCalendarList() {
-        return getCalendars() ;
-    } */
+	public void saveDataBase() {
+		FileIO fileIO = new FileIO();
+		CalendarList calendarList = new CalendarList(calendars);
+		String data = calendarList.toText();
+		fileIO.writeFile(data, "src\\application\\database.txt");
+		
+	}
 
 	public ObservableList<BasicCalendar> getCalendars() {
 		return calendars;
