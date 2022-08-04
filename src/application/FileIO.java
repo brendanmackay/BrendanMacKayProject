@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class FileIO {
 	
+// The code in this FileIO is repurposed from the following website
 // from https://www.w3schools.com/java/java_files_read.asp
 	
 	public String readFile(String filePath) {
@@ -33,9 +34,7 @@ public class FileIO {
 		      File myObj = new File(fileName);
 		      if (myObj.createNewFile()) {
 		        System.out.println("File created: " + myObj.getName());
-		      } else {
-		        System.out.println("File already exists.");
-		      }
+		      } else ;
 		    } catch (IOException e) {
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();
@@ -44,7 +43,7 @@ public class FileIO {
 		      FileWriter myWriter = new FileWriter(fileName);
 		      myWriter.write(fileContent);
 		      myWriter.close();
-		      System.out.println("Successfully wrote to the file.");
+		      // System.out.println("Successfully wrote to the file.");
 		    } catch (IOException e) {
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();

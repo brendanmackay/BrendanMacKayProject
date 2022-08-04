@@ -1,7 +1,6 @@
 package application;
 
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -31,15 +30,13 @@ import javafx.beans.value.*;
 
 public class CalendarController implements Initializable {
 	
+	// Initialize calendar data from database
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		listViewCalendars.setItems(calendars);
 		calendarChoiceBox.setItems(calendars);
 		deleteCalendarChoiceBox.setItems(calendars);
 	}   
-	
-	private Stage applicationStage;
-	private Scene scene;
 	
 	// Load from database textfile
 	private CalendarList calendarList = new CalendarList("src\\application\\database.txt");
@@ -50,16 +47,11 @@ public class CalendarController implements Initializable {
 	// create variable that keeps track of which calendar events are being displayed
 	private BasicCalendar displayedCalendar = new BasicCalendar();
 	
-	// Nodes in Individual view fxml
-	@FXML	private DatePicker datePickerIndividualView;
-	@FXML	private ListView<BasicEvent> listViewIndividual;
-	@FXML	private TextField descriptionTextFieldIndividual;
-	
 	// Nodes in main fxml
 	@FXML	private AnchorPane rootPane;
 	@FXML	private TextField calendarNameTextField;
 	@FXML	private TextField descriptionTextField;
-	@FXML	private DatePicker datePickerHomeView;
+	@FXML	private DatePicker datePicker;
 	@FXML	private ListView<BasicCalendar> listViewCalendars;
 	@FXML	private ListView<BasicEvent> listViewEvents;
 	@FXML	private TextField newCalendarName;
@@ -77,6 +69,10 @@ public class CalendarController implements Initializable {
     	if (newCalendarName.getText() == "") {
     		errorLabel.setText("Enter a Calendar Name");
     	}
+    	else if (newCalendarName.getText().contains("`") || newCalendarName.getText().contains(";")
+    			|| newCalendarName.getText().contains("/")) {
+    		errorLabel.setText("The characters ; / ` cannot be used");
+    	}
     	else {
     		calendars.add(new BasicCalendar(newCalendarName.getText()));
     		errorLabel.setText("");
@@ -90,7 +86,6 @@ public class CalendarController implements Initializable {
     		displayedCalendar = calendars.get(calendars.size()-1);
     		currentCalendarLabel.setText(displayedCalendar.getName());
     		calendarList.saveDataBase();
-    		// System.out.println(displayedCalendar);
     	}
     }
     
@@ -103,7 +98,6 @@ public class CalendarController implements Initializable {
     		deleteEventChoiceBox.setItems(calendars.get(calendarChoiceBox.getSelectionModel().getSelectedIndex()).getEvents());
     		displayedCalendar = calendars.get(calendarChoiceBox.getSelectionModel().getSelectedIndex());
     		currentCalendarLabel.setText(displayedCalendar.getName());
-    		// currentCalendarLabel.setText(calendars.get(calendarChoiceBox.getSelectionModel().getSelectedIndex()).getName());
     	}
     }
     
@@ -116,17 +110,20 @@ public class CalendarController implements Initializable {
     	else if (descriptionTextField.getText() == "") {
     		errorLabel.setText("Enter an event description");
     	}
+    	else if (descriptionTextField.getText().contains("`") || descriptionTextField.getText().contains(";")
+    			|| descriptionTextField.getText().contains("/")) {
+    		errorLabel.setText("The characters ; / ` cannot be used");
+    	}
     	else if (listViewEvents.getItems() == null);
     	else if (displayedCalendar.getName() == null) {
     		errorLabel.setText("Choose a calendar to add the event");
     	}
     	else {
-    		System.out.println(displayedCalendar.getName());
     		errorLabel.setText("");
-    		listViewEvents.getItems().add(new BasicEvent(descriptionTextField.getText(), datePickerHomeView.getValue()));
+    		listViewEvents.getItems().add(new BasicEvent(descriptionTextField.getText(), datePicker.getValue()));
     		deleteEventChoiceBox.setItems(calendars.get(calendarChoiceBox.getSelectionModel().getSelectedIndex()).getEvents());
 	    	descriptionTextField.setText("");
-	    	datePickerHomeView.setValue(null);
+	    	datePicker.setValue(null);
 	    	numberOfEventsLabel.setText(Integer.toString(calendars.get(0).getEvents().size()));
 	    	calendarList.saveDataBase();
     	}
@@ -162,39 +159,15 @@ public class CalendarController implements Initializable {
     	}
     }
     
-    public Stage getApplicationStage() {
-		return applicationStage;
-	}
-
-
-	public void setApplicationStage(Stage applicationStage) {
-		this.applicationStage = applicationStage;
-	}
-
-
-	
-    public void switchHomeScreen(ActionEvent event) throws IOException {
-	    Parent root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
-		applicationStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		applicationStage.setUserData(calendars);
-		scene = new Scene(root);
-		applicationStage.setScene(scene);
-		applicationStage.show();
-		
-		// code from https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
-    }
     
     @FXML
     void switchIndividualCalendarView(ActionEvent event) throws IOException {
     	AnchorPane pane = FXMLLoader.load(getClass().getResource("IndividualCalendarView.fxml"));
     	rootPane.getChildren().setAll(pane);
-    	// from https://www.youtube.com/watch?v=9uubyM6oHAY&ab_channel=today%27sIT
+    	// code from https://www.youtube.com/watch?v=9uubyM6oHAY&ab_channel=today%27sIT
     }
-
-
-	
+    
 }
-
 
 /* public void initialize(URL url, ResourceBundle rb) {
 
