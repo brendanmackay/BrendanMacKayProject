@@ -7,11 +7,17 @@ public class BasicEvent {
 	private String description;
 	private LocalDate date;
 	
-	public BasicEvent(LocalDate date, String description) {
+	public BasicEvent (String description) {
+		setDescription(description);
+	}
+	
+	public BasicEvent(String description, LocalDate date) {
 		if (date != null) setDate(date);
 		setDescription(description);
 	}
 	
+
+
 	public LocalDate getDate() {
 		return date;
 	}

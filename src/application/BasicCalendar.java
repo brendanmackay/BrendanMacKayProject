@@ -11,6 +11,9 @@ public class BasicCalendar {
 	private ObservableList<BasicEvent> events = FXCollections.observableArrayList();
 	private String name;
 	
+	public BasicCalendar() {
+	}
+	
 	public BasicCalendar(String name){
 		setName(name);
 	}
