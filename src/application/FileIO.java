@@ -11,6 +11,11 @@ public class FileIO {
 // The code in this FileIO is repurposed from the following website
 // from https://www.w3schools.com/java/java_files_read.asp
 	
+	
+	/** Read text file from the given filePath and return it as a string
+	 * @param filePath the path of the text file
+	 * @return
+	 */
 	public String readFile(String filePath) {
 		String fileContent = "";
 		try {
@@ -28,7 +33,11 @@ public class FileIO {
 	}
 	
 	
-	
+	/** Write the content in the first string parameter
+	 * to the file path fo the second string parameter
+	 * @param fileContent write in text file
+	 * @param fileName text file location
+	 */
 	public void writeFile(String fileContent, String fileName) {
 		try {
 		      File myObj = new File(fileName);

@@ -1,1 +1,1 @@
-Climb/Squamish;2022-08-03/Canmore;null/Acephale;null/Grotto Canyon;null`Skiing/Cardrona;null/Kitzterinhorn;null/Copper;2022-12-01`Exercises/Cleans;null/Pullups;null/deadlifts;null/pullups;null
+Climb/Squamish;2022-08-03/Canmore;null/Acephale;null/Grotto Canyon;null/FrankSlide;null`Skiing/Cardrona;null/Kitzterinhorn;null/Copper;2022-12-01`Exercises/Cleans;null/deadlifts;null/pullups;null`Finances/Pay bills;null/Deposit Money;null`Working`Candy/training;null

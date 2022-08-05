@@ -12,18 +12,18 @@ import javafx.scene.Scene;
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
-		try {
+		try {										// Load the main view
 			Parent root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.show();
+			Scene scene = new Scene(root);			// create a scene from the view
+			primaryStage.setScene(scene);			// set the scene
+			primaryStage.show();					// show the scene
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) {		// Run the application
 		launch(args);
 	}
 }

@@ -57,6 +57,12 @@ public class IndividualViewController implements Initializable {
 	// create variable that keeps track of which calendar events are being displayed
 	private BasicCalendar displayedCalendar = new BasicCalendar();
 	
+	
+	
+	/** Changes the events displayed in the GUI to the selected calendar 
+     *  if a calendar in the choicebox has been selected.
+     * @param event change/select calendar button pressed
+     */
 	@FXML
     void selectCalendar(ActionEvent event) {
     	if (calendarChoiceBox.getValue() == null);
@@ -69,6 +75,11 @@ public class IndividualViewController implements Initializable {
     }
 	
 	
+	/** Adds a new BasicEvent to the selected BasicCalendar in the GUI.
+     * Error messages are displayed if a calendar is not selected. A
+     * event description is not given. A banned character is used.
+     * @param event add event button pressed in GUI
+     */
 	@FXML
     void addEvent(ActionEvent event) {
     	if (calendars.size() == 0) {
@@ -95,6 +106,11 @@ public class IndividualViewController implements Initializable {
     	}
     }
 	
+	
+	/** Delete a BasicEvent from the selected BasicCalendar in the GUI
+     * when the delete event button is pressed and an event is selected
+     * @param event the delete event button is pressed in the GUI
+     */
     @FXML
     void deleteEvent(ActionEvent event) {
     	if (deleteEventChoiceBox.getItems().size() == 0);
@@ -106,7 +122,12 @@ public class IndividualViewController implements Initializable {
     	}
     }
 	
-	
+    /** Change the view to the main view.
+     * The main view has a separate controller.
+     * This code is from from https://www.youtube.com/watch?v=9uubyM6oHAY&ab_channel=today%27sIT
+     * @param event  Switch to individual view button is pressed
+     * @throws IOException
+     */
 	@FXML
 	public void switchHomeScreen(ActionEvent event) throws IOException {
 	    Parent root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
