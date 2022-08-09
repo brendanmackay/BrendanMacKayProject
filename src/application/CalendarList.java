@@ -32,7 +32,7 @@ public class CalendarList {
 	 * 	into the calendars instance variable.
 	 * @param calendars assigned to the instance variable
 	 */
-	CalendarList ( ObservableList<BasicCalendar> calendars) {
+	public CalendarList ( ObservableList<BasicCalendar> calendars) {
 		this.calendars = calendars;
 	}
     
