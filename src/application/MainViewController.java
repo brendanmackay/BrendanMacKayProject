@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 import javafx.beans.value.*;
 
 // The Calendar Controller implements Initializable to initialize data
-public class CalendarController implements Initializable {
+public class MainViewController implements Initializable {
 	
 	
 	@Override	// Initialize calendar data from database
@@ -77,9 +77,8 @@ public class CalendarController implements Initializable {
     	if (newCalendarName.getText() == "") {		// Must choose a name for the calendar
     		errorLabel.setText("Enter a Calendar Name");
     	}
-    	else if (newCalendarName.getText().contains("`") || newCalendarName.getText().contains(";")
-    			|| newCalendarName.getText().contains("/")) {			// Cannot use these characters 
-    		errorLabel.setText("The characters ; / ` cannot be used");	// They are used in the database
+    	else if (newCalendarName.getText().matches(CalendarList.bannedCharacters)) {			// Cannot use these characters 
+    		errorLabel.setText("The characters ; / ` ! < > cannot be used");	// They are used in the database
     	}
     	else {		// Add the calendar to the calendar list and change various nodes in the GUI
     		calendars.add(new BasicCalendar(newCalendarName.getText()));
@@ -130,9 +129,8 @@ public class CalendarController implements Initializable {
     	else if (descriptionTextField.getText() == "") {	// a description must be given
     		errorLabel.setText("Enter an event description");
     	}
-    	else if (descriptionTextField.getText().contains("`") || descriptionTextField.getText().contains(";")
-    			|| descriptionTextField.getText().contains("/")) {		// Banned characters as they are 
-    		errorLabel.setText("The characters ; / ` cannot be used");	// used in the database
+    	else if (descriptionTextField.getText().matches(CalendarList.bannedCharacters)) {		// Banned characters as they are 
+    		errorLabel.setText("The characters ; / ` ! < > cannot be used");	// used in the database
     	}
     														// else if (listViewEvents.getItems() == null);
     	else if (displayedCalendar.getName() == null) {		// a calendar must be selected to add the events
@@ -200,8 +198,22 @@ public class CalendarController implements Initializable {
      */
     @FXML
     void switchIndividualCalendarView(ActionEvent event) throws IOException {
-    	AnchorPane pane = FXMLLoader.load(getClass().getResource("IndividualCalendarView.fxml"));
+    	AnchorPane pane = FXMLLoader.load(getClass().getResource("/fxmlFiles/IndividualCalendarView.fxml"));
     	rootPane.getChildren().setAll(pane);		// set the rootpane to the new FXML file
     }
+    
+    /** Change the view to a type view where you can add more different types
+     * of events. This other view has its own FXML file and controller.
+     * This code is from from https://www.youtube.com/watch?v=9uubyM6oHAY&ab_channel=today%27sIT
+     * @param event  Switch to individual view button is pressed
+     * @throws IOException
+     */
+    @FXML
+    void switchTypeCalendarView(ActionEvent event) throws IOException {
+    	AnchorPane pane = FXMLLoader.load(getClass().getResource("/fxmlFiles/TypeCalendarView.fxml"));
+    	rootPane.getChildren().setAll(pane);		// set the rootpane to the new FXML file
+    	
+    }
+    
     
 }

@@ -12,12 +12,17 @@ public class CalendarList {
 	// This list is loaded and saved to the database 
 	private ObservableList<BasicCalendar> calendars = FXCollections.observableArrayList();
 	
+	// Set the banned characters which are used in the database
+	// The following are not banned *.[  ].* but used in the regex
+	// From https://stackoverflow.com/questions/14392270/how-do-i-check-if-a-string-contains-a-list-of-characters
+	public static final String bannedCharacters = ".*[`;/<!>].*";
+	
 	
 	/** This constructor loads the database into the CalendarList
 	 *  taking as a parameter the filepath for the database text file.
 	 * @param filePath database text file
 	 */
-	CalendarList (String filePath) {
+	public CalendarList (String filePath) {
 		FileIO fileIO = new FileIO(); 				// create object to use FileIO methods
 		toCalendars(fileIO.readFile(filePath));		// read the database using the fileIO
 	}												// toCalendars populates calendars
@@ -38,11 +43,19 @@ public class CalendarList {
 	 * @return	the string of calendars in its database form
 	 */
 	public String toText() {
-		String text = ""; 							
+		String text = ""; 
+		
 		for (BasicCalendar c : calendars) {
 			text += c.getName() ;							// start with the calendar name
-			for (BasicEvent e : c.getEvents()) {			
+			for (BasicEvent e : c.getEvents()) {	
 				text += "/" + e.getDescription() + ";" + e.getDate();
+				if (e instanceof Flight) {					// If it's a flight add a flight
+					text += "<" + ((Flight)e).getDepartureAirport() + ">" + ((Flight)e).getArrivalAirport();
+				}
+				if (e instanceof Work) {
+					text += "!" + ((Work)e).getShiftStart() + ">" + ((Work)e).getShiftEnd();
+				}
+					
 			}								// separate events and descriptions with / and ;
 			text += "`";					// put a ` before the next event
 		}
@@ -67,12 +80,26 @@ public class CalendarList {
 				if (eventProperties.length == 1) { 		// if there is only 1 event property it is a name
 					calendars.get(counter).addEvent(new BasicEvent(eventProperties[0]));
 				}
-				else if (eventProperties[1].equals("null")) { // if the date is null do not add to events
-					calendars.get(counter).addEvent(new BasicEvent(eventProperties[0]));
+				else if (eventProperties.length == 2) {			// If the length is 2 figure out the type
+					if (eventProperties[1].contains("<")) {		// this is an event of type flight
+						String[] dateAndFlights = eventProperties[1].split("<");
+						String[] flights = dateAndFlights[1].split(">");
+						calendars.get(counter).addEvent(new Flight(eventProperties[0], LocalDate.parse(dateAndFlights[0]), flights[0], flights[1]));
+					}
+					else if (eventProperties[1].contains("!")) {	// this is a event of type work
+						String[] dateAndShifts = eventProperties[1].split("!");
+						String[] shifts = dateAndShifts[1].split(">");
+						calendars.get(counter).addEvent(new Work(eventProperties[0], LocalDate.parse(dateAndShifts[0]), shifts[0], shifts[1]));
+					}
+					else if (eventProperties[1].equals("null")) { // if the date is null do not add to events
+						calendars.get(counter).addEvent(new BasicEvent(eventProperties[0]));
+					}
+					else { 								// otherwise add the date when constructing the new event
+						calendars.get(counter).addEvent(new BasicEvent(eventProperties[0], LocalDate.parse(eventProperties[1])));
+					}
 				}
-				else { 								// otherwise add the date when constructing the new event
-					calendars.get(counter).addEvent(new BasicEvent(eventProperties[0], LocalDate.parse(eventProperties[1])));
-				} 
+				else if (eventProperties.length == 4) {
+				}
 			}
 			counter ++;
 		}
