@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TypeViewController">
+	<children>
+      <VBox layoutX="91.0" prefHeight="266.0" prefWidth="588.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox>
+               <children>
+                  <Button mnemonicParsing="false" onAction="#selectCalendar" text="Select Calendar" />
+                  <ChoiceBox fx:id="calendarChoiceBox" prefHeight="25.0" prefWidth="82.0" />
+                  <Label fx:id="currentCalendarLabel" alignment="BASELINE_CENTER" prefHeight="25.0" prefWidth="210.0" text="Select Calendar">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="errorLabel" alignment="BASELINE_CENTER" prefHeight="25.0" prefWidth="201.0" textFill="RED" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#addEvent" text="Add Event" />
+                  <TextField fx:id="descriptionTextField" prefHeight="25.0" prefWidth="189.0" promptText="Description" />
+                  <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="119.0" promptText="Date" />
+                  <Button mnemonicParsing="false" onAction="#deleteEvent" prefHeight="25.0" prefWidth="89.0" text="Delete Event" />
+                  <ChoiceBox fx:id="deleteEventChoiceBox" prefHeight="25.0" prefWidth="131.0" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label prefHeight="25.0" prefWidth="74.0" text="Event Type:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ChoiceBox fx:id="eventTypeChoiceBox" prefHeight="25.0" prefWidth="80.0" />
+                  <TextField fx:id="typeBoxOne" prefHeight="25.0" prefWidth="154.0" promptText="Select event type &amp; press" />
+                  <TextField fx:id="typeBoxTwo" prefHeight="25.0" prefWidth="159.0" promptText="display button for info" />
+                  <Button mnemonicParsing="false" onAction="#displayPromptText" text="Display Prompt Text" />
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#switchHomeScreen" prefHeight="25.0" prefWidth="600.0" text="Home" />
+            <ListView fx:id="listViewEvents" prefHeight="378.0" prefWidth="600.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

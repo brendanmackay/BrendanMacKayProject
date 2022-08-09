@@ -27,12 +27,14 @@ import javafx.stage.Stage;
 import javafx.beans.value.*;
 
 
-public class IndividualViewController implements Initializable {
+public class TypeViewController implements Initializable {
 		
 	// Initialize calendar data from database
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		calendarChoiceBox.setItems(calendars);
+		eventTypeChoiceBox.getItems().addAll(types);
+		eventTypeChoiceBox.getSelectionModel().selectFirst();
 	}   
 	
 	// Nodes in Individual view fxml
@@ -43,6 +45,12 @@ public class IndividualViewController implements Initializable {
 	@FXML	private Label currentCalendarLabel;
 	@FXML	private Label errorLabel;
 	@FXML	private ChoiceBox<BasicEvent> deleteEventChoiceBox;
+	@FXML	private ChoiceBox<String> eventTypeChoiceBox;
+	@FXML	private TextField typeBoxOne;
+	@FXML	private TextField typeBoxTwo;
+	
+	// The types of events which can be added from the choiceBox
+	String[] types = {"Basic", "Flight", "Work"};
 	
 	// get stage and scene to switch back to home screen
 	private Stage applicationStage;
@@ -88,19 +96,79 @@ public class IndividualViewController implements Initializable {
     	else if (descriptionTextField.getText() == "") {
     		errorLabel.setText("Enter an event description");
     	}
-    	else if (descriptionTextField.getText().matches(CalendarList.bannedCharacters)) {
+    	else if (descriptionTextField.getText().matches(CalendarList.bannedCharacters) 
+    			|| typeBoxOne.getText().matches(CalendarList.bannedCharacters)
+    			|| typeBoxTwo.getText().matches(CalendarList.bannedCharacters)) {
     		errorLabel.setText("The characters ; / ` ! < > cannot be used");
     	}
     	else if (listViewEvents.getItems() == null);
     	else if (displayedCalendar.getName() == null) {
     		errorLabel.setText("Choose a calendar to add the event");
     	}
-    	else {
+    	
+    	else if (eventTypeChoiceBox.getValue().equals("Flight")) {
+    		if (datePicker.getValue() == null || typeBoxOne.getText() == null || typeBoxOne.getText() == "" 
+    				|| typeBoxTwo.getText() == null || typeBoxTwo.getText() == "") {
+    			errorLabel.setText("Enter date, departure, & arrival");
+    		}
+    		else {
+	    		listViewEvents.getItems().add(new Flight(descriptionTextField.getText(), datePicker.getValue(),
+	    				typeBoxOne.getText(), typeBoxTwo.getText()));
+	    		refresh();
+    		}
+    	
+    	}
+    	else if (eventTypeChoiceBox.getValue().equals("Work")) {
+    		if (datePicker.getValue() == null || typeBoxOne.getText() == null || typeBoxOne.getText() == "" 
+    				|| typeBoxTwo.getText() == null || typeBoxTwo.getText() == "") {
+    			errorLabel.setText("Enter date and shift times");
+    		}
+    		else {
+	    		listViewEvents.getItems().add(new Work(descriptionTextField.getText(), datePicker.getValue(),
+	    				typeBoxOne.getText(), typeBoxTwo.getText()));
+	    		errorLabel.setText("");
+	    		refresh();
+    		}
+    	}
+    	else if (eventTypeChoiceBox.getValue().equals("Basic")) {
     		listViewEvents.getItems().add(new BasicEvent(descriptionTextField.getText(), datePicker.getValue()));
     		deleteEventChoiceBox.setItems(calendars.get(calendarChoiceBox.getSelectionModel().getSelectedIndex()).getEvents());
 	    	refresh();
     	}
     }
+	
+	
+	/** Refreshes nodes on the GUI when called.
+	 */
+	private void refresh() {
+		errorLabel.setText("");
+		descriptionTextField.setText("");
+    	datePicker.setValue(null);
+    	calendarList.saveDataBase();
+    	typeBoxOne.setText("");
+    	typeBoxTwo.setText("");
+	}
+	
+	
+	/** When this button is pressed the information for whatever event
+	 * type has been selected will be displayed in the text boxes.
+	 * @param event
+	 */
+	@FXML
+	void displayPromptText(ActionEvent event) {
+		if (eventTypeChoiceBox.getValue().equals("Basic")) {
+			typeBoxOne.setPromptText("No extra properties");
+			typeBoxTwo.setPromptText("for basic events");
+		}
+		if (eventTypeChoiceBox.getValue().equals("Flight")) {
+			typeBoxOne.setPromptText("Departure Airport");
+			typeBoxTwo.setPromptText("Arrival Airport");
+		}
+		if (eventTypeChoiceBox.getValue().equals("Work")) {
+			typeBoxOne.setPromptText("Shift Start time");
+			typeBoxTwo.setPromptText("Shift End time");
+		}
+	}
 	
 	
 	/** Delete a BasicEvent from the selected BasicCalendar in the GUI
@@ -117,17 +185,6 @@ public class IndividualViewController implements Initializable {
     		calendarList.saveDataBase();
     	}
     }
-    
-    
-    /** Refreshes nodes on the GUI when called.
-	 */
-	private void refresh() {
-		errorLabel.setText("");
-		descriptionTextField.setText("");
-    	datePicker.setValue(null);
-    	calendarList.saveDataBase();
-	}
-	
 	
     /** Change the view to the main view.
      * The main view has a separate controller.
@@ -144,5 +201,7 @@ public class IndividualViewController implements Initializable {
 		applicationStage.show();
 		// code from https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
     }
+	
+	
 
 }
