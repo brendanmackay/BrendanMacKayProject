@@ -78,7 +78,7 @@ public class MainViewController implements Initializable {
     		errorLabel.setText("Enter a Calendar Name");
     	}
     	else if (newCalendarName.getText().matches(CalendarList.bannedCharacters)) {			// Cannot use these characters 
-    		errorLabel.setText("The characters ; / ` ! < > cannot be used");	// They are used in the database
+    		errorLabel.setText("The characters ; / ` ! < > # cannot be used");	// They are used in the database
     	}
     	else {		// Add the calendar to the calendar list and change various nodes in the GUI
     		calendars.add(new BasicCalendar(newCalendarName.getText()));
@@ -130,7 +130,7 @@ public class MainViewController implements Initializable {
     		errorLabel.setText("Enter an event description");
     	}
     	else if (descriptionTextField.getText().matches(CalendarList.bannedCharacters)) {		// Banned characters as they are 
-    		errorLabel.setText("The characters ; / ` ! < > cannot be used");	// used in the database
+    		errorLabel.setText("The characters ; / ` ! < > # cannot be used");	// used in the database
     	}
     														// else if (listViewEvents.getItems() == null);
     	else if (displayedCalendar.getName() == null) {		// a calendar must be selected to add the events

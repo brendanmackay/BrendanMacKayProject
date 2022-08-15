@@ -15,7 +15,7 @@ public class CalendarList {
 	// Set the banned characters which are used in the database
 	// The following are not banned *.[  ].* but used in the regex
 	// From https://stackoverflow.com/questions/14392270/how-do-i-check-if-a-string-contains-a-list-of-characters
-	public static final String bannedCharacters = ".*[`;/<!>].*";
+	public static final String bannedCharacters = ".*[`;/<!>#].*";
 	
 	
 	/** This constructor loads the database into the CalendarList
@@ -52,14 +52,19 @@ public class CalendarList {
 				if (e instanceof Flight) {					// If it's a flight add a flight
 					text += "<" + ((Flight)e).getDepartureAirport() + ">" + ((Flight)e).getArrivalAirport();
 				}
-				if (e instanceof Work) {
+				if (e instanceof Work) {					// If its a instance of work add a work
 					text += "!" + ((Work)e).getShiftStart() + ">" + ((Work)e).getShiftEnd();
 				}
+				if (e instanceof School) {					// If its a instance of school add a school
+					text += "#" + ((School)e).getLocation() + ">" + ((School)e).getTime();
+				}
+				
+				
 					
 			}								// separate events and descriptions with / and ;
 			text += "`";					// put a ` before the next event
 		}
-		text = text.substring(0, text.length()-1);		// remove the last 	`
+		text = text.substring(0, text.length()-1);		// remove the last character `
 		return text;
 	}
 	
@@ -84,21 +89,30 @@ public class CalendarList {
 					if (eventProperties[1].contains("<")) {		// this is an event of type flight
 						String[] dateAndFlights = eventProperties[1].split("<");
 						String[] flights = dateAndFlights[1].split(">");
-						calendars.get(counter).addEvent(new Flight(eventProperties[0], LocalDate.parse(dateAndFlights[0]), flights[0], flights[1]));
+						calendars.get(counter).addEvent(new Flight(eventProperties[0], 
+								LocalDate.parse(dateAndFlights[0]), flights[0], flights[1]));
 					}
 					else if (eventProperties[1].contains("!")) {	// this is a event of type work
 						String[] dateAndShifts = eventProperties[1].split("!");
 						String[] shifts = dateAndShifts[1].split(">");
-						calendars.get(counter).addEvent(new Work(eventProperties[0], LocalDate.parse(dateAndShifts[0]), shifts[0], shifts[1]));
+						calendars.get(counter).addEvent(new Work(eventProperties[0], 
+								LocalDate.parse(dateAndShifts[0]), shifts[0], shifts[1]));
 					}
-					else if (eventProperties[1].equals("null")) { // if the date is null do not add to events
+					
+					
+					
+					else if (eventProperties[1].contains("#")) {
+						String[] dateAndLocationTime = eventProperties[1].split("#");
+						String[] locationAndTime = dateAndLocationTime[1].split(">");
+						calendars.get(counter).addEvent(new School(eventProperties[0], 
+								LocalDate.parse(dateAndLocationTime[0]), locationAndTime[0], locationAndTime[1]));
+					}
+					else if (eventProperties[1].equals("null")) { // if the date is null do not add date to event
 						calendars.get(counter).addEvent(new BasicEvent(eventProperties[0]));
 					}
 					else { 								// otherwise add the date when constructing the new event
 						calendars.get(counter).addEvent(new BasicEvent(eventProperties[0], LocalDate.parse(eventProperties[1])));
 					}
-				}
-				else if (eventProperties.length == 4) {
 				}
 			}
 			counter ++;
@@ -120,9 +134,5 @@ public class CalendarList {
 		return calendars;
 	}
 
-	/*
-	public void setCalendars(ObservableList<BasicCalendar> calendars) {
-		this.calendars = calendars;
-	}
-	*/
+
 }

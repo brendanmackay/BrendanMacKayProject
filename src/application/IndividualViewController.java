@@ -89,7 +89,7 @@ public class IndividualViewController implements Initializable {
     		errorLabel.setText("Enter an event description");
     	}
     	else if (descriptionTextField.getText().matches(CalendarList.bannedCharacters)) {
-    		errorLabel.setText("The characters ; / ` ! < > cannot be used");
+    		errorLabel.setText("The characters ; / ` ! < > # cannot be used");
     	}
     	else if (listViewEvents.getItems() == null);
     	else if (displayedCalendar.getName() == null) {
