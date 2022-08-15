@@ -50,7 +50,7 @@ public class TypeViewController implements Initializable {
 	@FXML	private TextField typeBoxTwo;
 	
 	// The types of events which can be added from the choiceBox
-	String[] types = {"Basic", "Flight", "Work"};
+	String[] types = {"Basic", "Flight", "Work", "School"};
 	
 	// get stage and scene to switch back to home screen
 	private Stage applicationStage;
@@ -99,7 +99,7 @@ public class TypeViewController implements Initializable {
     	else if (descriptionTextField.getText().matches(CalendarList.bannedCharacters) 
     			|| typeBoxOne.getText().matches(CalendarList.bannedCharacters)
     			|| typeBoxTwo.getText().matches(CalendarList.bannedCharacters)) {
-    		errorLabel.setText("The characters ; / ` ! < > cannot be used");
+    		errorLabel.setText("The characters ; / ` ! < > # cannot be used");
     	}
     	else if (listViewEvents.getItems() == null);
     	else if (displayedCalendar.getName() == null) {
@@ -125,6 +125,18 @@ public class TypeViewController implements Initializable {
     		}
     		else {
 	    		listViewEvents.getItems().add(new Work(descriptionTextField.getText(), datePicker.getValue(),
+	    				typeBoxOne.getText(), typeBoxTwo.getText()));
+	    		errorLabel.setText("");
+	    		refresh();
+    		}
+    	}
+    	else if (eventTypeChoiceBox.getValue().equals("School")) {
+    		if (datePicker.getValue() == null || typeBoxOne.getText() == null || typeBoxOne.getText() == ""
+    				|| typeBoxTwo.getText() == null || typeBoxTwo.getText() == "") {
+    			errorLabel.setText("Enter location and time");
+    		}
+    		else {
+    			listViewEvents.getItems().add(new School(descriptionTextField.getText(), datePicker.getValue(),
 	    				typeBoxOne.getText(), typeBoxTwo.getText()));
 	    		errorLabel.setText("");
 	    		refresh();
@@ -167,6 +179,10 @@ public class TypeViewController implements Initializable {
 		if (eventTypeChoiceBox.getValue().equals("Work")) {
 			typeBoxOne.setPromptText("Shift Start time");
 			typeBoxTwo.setPromptText("Shift End time");
+		}
+		if (eventTypeChoiceBox.getValue().equals("School")) {
+			typeBoxOne.setPromptText("School Location");
+			typeBoxTwo.setPromptText("School Time");
 		}
 	}
 	

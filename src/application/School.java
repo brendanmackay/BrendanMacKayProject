@@ -5,10 +5,9 @@ import java.time.LocalDate;
 public class School extends BasicEvent{
 	
 	// Instance variables for school class
-	private String lectureLocation;
-	private String lectureTime;
+	private String location;
+	private String time;
 
-	
 
 	/**
 	 * one constructor which calls the parent constructor from BasicEvents
@@ -18,38 +17,49 @@ public class School extends BasicEvent{
 	 * @param lectureLocation the location of the lecture
 	 * @param lectureTime the time of the lecture
 	 */
-	public School(String description, LocalDate date, String lectureLocation, String lectureTime) {
+	public School(String description, LocalDate date, String location, String time) {
 		super(description, date);
-		this.lectureLocation = lectureLocation;
-		this.lectureTime = lectureTime;
+		this.location = location;
+		this.time = time;
 		
 	}
 
+	
+	/**
+	 * The method which returns a string for the school Class by calling the 
+	 * toString of its parent Basic Events. This toString is displayed in 
+	 * the GUI in listview.
+	 */
+	public String toString() {
+		return "School: " + super.toString() + " at " + time + ". Location: " + location + 
+				".";
+	}
+	
 	/** Getter for the lecture location instance variable
 	 * @return returns the lectureLocation instance variable
 	 */
-	public String getLectureLocation() {
-		return lectureLocation;
+	public String getLocation() {
+		return location;
 	}
 
 	/** Setter for the lecture location instance variable
 	 * @param lectureLocation sets the lectureLocation instance variable
 	 */
-	public void setLectureLocation(String lectureLocation) {
-		this.lectureLocation = lectureLocation;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	/** Getter for the lecture time instance variable
 	 * @return returns the lectureTime instance variable
 	 */
-	public String getLectureTime() {
-		return lectureTime;
+	public String getTime() {
+		return time;
 	}
 
 	/** Setter for the lecture time instance variable
 	 * @param lectureTime sets the lectureTime instance variable
 	 */
-	public void setLectureTime(String lectureTime) {
-		this.lectureTime = lectureTime;
+	public void setTime(String time) {
+		this.time = time;
 	}
 }
