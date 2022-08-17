@@ -62,9 +62,6 @@ public class BasicCalendar {
 	/**Assigns the instance variable name the parameter value
 	 * @param name assigns the parameter String to the instance Variable name
 	 */
-	
-	
-	
 	public void setName(String name) {
 		this.name = name;
 	}
