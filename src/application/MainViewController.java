@@ -39,11 +39,11 @@ public class MainViewController implements Initializable {
 	}   
 	
 	
-	// Load from database textfile
+	// Load from database textfile into CalendarList Class
 	private CalendarList calendarList = new CalendarList("src\\application\\database.txt");
 	
 	
-	//store data loaded from database into calendars instance of calendarList
+	//get instance variable from CalendarList Class
 	private ObservableList<BasicCalendar> calendars = calendarList.getCalendars();
 	
 	
@@ -59,7 +59,6 @@ public class MainViewController implements Initializable {
 	@FXML	private ListView<BasicCalendar> listViewCalendars;
 	@FXML	private ListView<BasicEvent> listViewEvents;
 	@FXML	private TextField newCalendarName;
-	@FXML	private Label numberOfEventsLabel;
 	@FXML	private ChoiceBox<BasicCalendar> calendarChoiceBox;
 	@FXML	private Label errorLabel;
 	@FXML	private ChoiceBox<BasicCalendar> deleteCalendarChoiceBox;
@@ -73,7 +72,7 @@ public class MainViewController implements Initializable {
 	 * @throws IOException
 	 */
     @FXML
-    void createNewCalendar(ActionEvent event) throws IOException {
+    private void createNewCalendar(ActionEvent event) throws IOException {
     	if (newCalendarName.getText() == "") {		// Must choose a name for the calendar
     		errorLabel.setText("Enter a Calendar Name");
     	}
@@ -102,7 +101,7 @@ public class MainViewController implements Initializable {
      * @param event change/select calendar button pressed
      */
     @FXML
-    void selectCalendar(ActionEvent event) {
+    private void selectCalendar(ActionEvent event) {
     	if (calendarChoiceBox.getValue() == null);	// A calendar must be selected in the choicebox
     	else {				// update the various nodes in the GUI to display the correct calendar
     		listViewEvents.setItems(calendars.get(calendarChoiceBox.getSelectionModel().
@@ -122,7 +121,7 @@ public class MainViewController implements Initializable {
      * @param event add event button pressed in GUI
      */
     @FXML
-    void addEvent(ActionEvent event) {
+    private void addEvent(ActionEvent event) {
     	if (calendars.size() == 0) { 		// A calendar must be created before any events 
     		errorLabel.setText("Create a Calendar first");
     	}
@@ -143,7 +142,6 @@ public class MainViewController implements Initializable {
     				getSelectedIndex()).getEvents());
 	    	descriptionTextField.setText("");
 	    	datePicker.setValue(null);
-	    	numberOfEventsLabel.setText(Integer.toString(calendars.get(0).getEvents().size()));
 	    	calendarList.saveDataBase();
     	}
     }
@@ -154,7 +152,7 @@ public class MainViewController implements Initializable {
      * @param event the delete event button is pressed in the GUI
      */
     @FXML
-    void deleteEvent(ActionEvent event) {
+    private void deleteEvent(ActionEvent event) {
     	if (deleteEventChoiceBox.getItems().size() == 0);		// There must be events to delete
     	if (deleteEventChoiceBox.getValue() == null);		// An event needs to be selected in the choicebox
     	else {					// delete the event from the list, reset the choicebox, save to the database
@@ -171,7 +169,7 @@ public class MainViewController implements Initializable {
      * @param event delete calendar button is pressed
      */
     @FXML
-    void deleteCalendar(ActionEvent event) {
+    private void deleteCalendar(ActionEvent event) {
     	if (calendars.size() == 0);				// There must be a calendar
     	if (deleteCalendarChoiceBox.getValue() == null); // a calendar must be selected
     	else {			//If the deleted calendar is the calendar being displayed refresh events in GUI
@@ -197,7 +195,7 @@ public class MainViewController implements Initializable {
      * @throws IOException
      */
     @FXML
-    void switchIndividualCalendarView(ActionEvent event) throws IOException {
+    private void switchIndividualCalendarView(ActionEvent event) throws IOException {
     	AnchorPane pane = FXMLLoader.load(getClass().getResource("/fxmlFiles/IndividualCalendarView.fxml"));
     	rootPane.getChildren().setAll(pane);		// set the rootpane to the new FXML file
     }
@@ -209,7 +207,7 @@ public class MainViewController implements Initializable {
      * @throws IOException
      */
     @FXML
-    void switchTypeCalendarView(ActionEvent event) throws IOException {
+    private void switchTypeCalendarView(ActionEvent event) throws IOException {
     	AnchorPane pane = FXMLLoader.load(getClass().getResource("/fxmlFiles/TypeCalendarView.fxml"));
     	rootPane.getChildren().setAll(pane);		// set the rootpane to the new FXML file
     	

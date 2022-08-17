@@ -72,7 +72,7 @@ public class TypeViewController implements Initializable {
      * @param event change/select calendar button pressed
      */
 	@FXML
-    void selectCalendar(ActionEvent event) {
+    private void selectCalendar(ActionEvent event) {
     	if (calendarChoiceBox.getValue() == null);
     	else {
     		listViewEvents.setItems(calendars.get(calendarChoiceBox.getSelectionModel().getSelectedIndex()).getEvents());
@@ -89,7 +89,7 @@ public class TypeViewController implements Initializable {
      * @param event add event button pressed in GUI
      */
 	@FXML
-    void addEvent(ActionEvent event) {
+    private void addEvent(ActionEvent event) {
     	if (calendars.size() == 0) {
     		errorLabel.setText("Create a Calendar first");
     	}
@@ -167,7 +167,7 @@ public class TypeViewController implements Initializable {
 	 * @param event
 	 */
 	@FXML
-	void displayPromptText(ActionEvent event) {
+	private void displayPromptText(ActionEvent event) {
 		if (eventTypeChoiceBox.getValue().equals("Basic")) {
 			typeBoxOne.setPromptText("No extra properties");
 			typeBoxTwo.setPromptText("for basic events");
@@ -192,7 +192,7 @@ public class TypeViewController implements Initializable {
      * @param event the delete event button is pressed in the GUI
      */
     @FXML
-    void deleteEvent(ActionEvent event) {
+    private void deleteEvent(ActionEvent event) {
     	if (deleteEventChoiceBox.getItems().size() == 0);
     	if (deleteEventChoiceBox.getValue() == null);
     	else {
@@ -209,7 +209,7 @@ public class TypeViewController implements Initializable {
      * @throws IOException
      */
 	@FXML
-	public void switchHomeScreen(ActionEvent event) throws IOException {
+	private void switchHomeScreen(ActionEvent event) throws IOException {
 	    Parent root = FXMLLoader.load(getClass().getResource("/fxmlFiles/HomeScreen.fxml"));
 		applicationStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);

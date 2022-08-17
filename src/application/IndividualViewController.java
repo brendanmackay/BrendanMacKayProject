@@ -64,7 +64,7 @@ public class IndividualViewController implements Initializable {
      * @param event change/select calendar button pressed
      */
 	@FXML
-    void selectCalendar(ActionEvent event) {
+	void selectCalendar(ActionEvent event) {
     	if (calendarChoiceBox.getValue() == null);
     	else {
     		listViewEvents.setItems(calendars.get(calendarChoiceBox.getSelectionModel().getSelectedIndex()).getEvents());

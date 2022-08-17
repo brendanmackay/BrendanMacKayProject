@@ -98,9 +98,6 @@ public class CalendarList {
 						calendars.get(counter).addEvent(new Work(eventProperties[0], 
 								LocalDate.parse(dateAndShifts[0]), shifts[0], shifts[1]));
 					}
-					
-					
-					
 					else if (eventProperties[1].contains("#")) {
 						String[] dateAndLocationTime = eventProperties[1].split("#");
 						String[] locationAndTime = dateAndLocationTime[1].split(">");
