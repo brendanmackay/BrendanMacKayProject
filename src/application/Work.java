@@ -4,9 +4,11 @@ import java.time.LocalDate;
 
 public class Work extends BasicEvent {
 
+	
 	// Instance variables for Work class
 	private String shiftStart;
 	private String shiftEnd;
+	
 	
 	/**
 	 * one constructor which calls the parent constructor from BasicEvents
@@ -57,6 +59,7 @@ public class Work extends BasicEvent {
 	public void setShiftStart(String shiftStart) {
 		this.shiftStart = shiftStart;
 	}
+	
 	
 	/**
 	 * The method which returns a string for the Work Class by calling the 

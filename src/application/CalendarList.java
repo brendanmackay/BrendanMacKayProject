@@ -6,14 +6,23 @@ import java.util.Arrays;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/*  I recieved help with the designing of this class from a friend Daniel who is a software engineer.
+ * While he did not write any of the code in this class, he was the one who recommended I use a text
+ * file as a database to solve the issues I was facing with my application. He helped me conceptualize 
+ * the toText(), toCalendars(), and saveDataBase() methods by explaining what purpose they should have and how 
+ * they should interact with the FileIO class. After his explanation I was able to design and implement
+ * the class on my own, however his help was indespensable.
+*/
+
 public class CalendarList {
 	
 	// Instance variable that stores a list of calendars
 	// This list is loaded and saved to the database 
 	private ObservableList<BasicCalendar> calendars = FXCollections.observableArrayList();
 	
+	
 	// Set the banned characters which are used in the database
-	// The following are not banned *.[  ].* but used in the regex
+	// The following are not banned .*[  ].* but used in the regex
 	// From https://stackoverflow.com/questions/14392270/how-do-i-check-if-a-string-contains-a-list-of-characters
 	public static final String bannedCharacters = ".*[`;/<!>#].*";
 	
@@ -57,10 +66,7 @@ public class CalendarList {
 				}
 				if (e instanceof School) {					// If its a instance of school add a school
 					text += "#" + ((School)e).getLocation() + ">" + ((School)e).getTime();
-				}
-				
-				
-					
+				}	
 			}								// separate events and descriptions with / and ;
 			text += "`";					// put a ` before the next event
 		}
@@ -98,7 +104,7 @@ public class CalendarList {
 						calendars.get(counter).addEvent(new Work(eventProperties[0], 
 								LocalDate.parse(dateAndShifts[0]), shifts[0], shifts[1]));
 					}
-					else if (eventProperties[1].contains("#")) {
+					else if (eventProperties[1].contains("#")) {	// this event is of type School
 						String[] dateAndLocationTime = eventProperties[1].split("#");
 						String[] locationAndTime = dateAndLocationTime[1].split(">");
 						calendars.get(counter).addEvent(new School(eventProperties[0], 
@@ -127,6 +133,10 @@ public class CalendarList {
 	}
 
 	
+	/**Getter method for the ObservableList of BasicCalendars
+	 * called calendars within the CalendarList Class
+	 * @return the calendars instance variable
+	 */
 	public ObservableList<BasicCalendar> getCalendars() {
 		return calendars;
 	}

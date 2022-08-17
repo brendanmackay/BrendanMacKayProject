@@ -29,6 +29,7 @@ import javafx.beans.value.*;
 
 public class IndividualViewController implements Initializable {
 		
+	
 	// Initialize calendar data from database
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -44,17 +45,21 @@ public class IndividualViewController implements Initializable {
 	@FXML	private Label errorLabel;
 	@FXML	private ChoiceBox<BasicEvent> deleteEventChoiceBox;
 	
+	
 	// get stage and scene to switch back to home screen
 	private Stage applicationStage;
 	private Scene scene;
 	
+	
 	// Load from database textfile
 	private CalendarList calendarList = new CalendarList("src\\application\\database.txt");
 		
+	
 	//store data loaded from database into calendars instance of calendarList
 	private ObservableList<BasicCalendar> calendars = calendarList.getCalendars();
 	
-	// create variable that keeps track of which calendar events are being displayed
+	
+	// create variable that keeps track of which calendar is being displayed in GUI
 	private BasicCalendar displayedCalendar = new BasicCalendar();
 	
 	
@@ -82,7 +87,7 @@ public class IndividualViewController implements Initializable {
      */
 	@FXML
     void addEvent(ActionEvent event) {
-    	if (calendars.size() == 0) {
+    	if (calendars.size() == 0) { 							// Start with various error hanlding
     		errorLabel.setText("Create a Calendar first");
     	}
     	else if (descriptionTextField.getText() == "") {
@@ -95,7 +100,7 @@ public class IndividualViewController implements Initializable {
     	else if (displayedCalendar.getName() == null) {
     		errorLabel.setText("Choose a calendar to add the event");
     	}
-    	else {
+    	else {													// If the input passes the error handling add a new event 
     		listViewEvents.getItems().add(new BasicEvent(descriptionTextField.getText(), datePicker.getValue()));
     		deleteEventChoiceBox.setItems(calendars.get(calendarChoiceBox.getSelectionModel().getSelectedIndex()).getEvents());
 	    	refresh();
@@ -109,9 +114,9 @@ public class IndividualViewController implements Initializable {
      */
     @FXML
     void deleteEvent(ActionEvent event) {
-    	if (deleteEventChoiceBox.getItems().size() == 0);
+    	if (deleteEventChoiceBox.getItems().size() == 0);			// begin with various error handling
     	if (deleteEventChoiceBox.getValue() == null);
-    	else {
+    	else {														// After error handling delete the event
     		listViewEvents.getItems().remove(deleteEventChoiceBox.getSelectionModel().getSelectedIndex());
     		deleteEventChoiceBox.setValue(null);
     		calendarList.saveDataBase();

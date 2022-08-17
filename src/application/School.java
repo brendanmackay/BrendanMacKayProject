@@ -35,6 +35,7 @@ public class School extends BasicEvent{
 				".";
 	}
 	
+	
 	/** Getter for the lecture location instance variable
 	 * @return returns the lectureLocation instance variable
 	 */
@@ -42,6 +43,7 @@ public class School extends BasicEvent{
 		return location;
 	}
 
+	
 	/** Setter for the lecture location instance variable
 	 * @param lectureLocation sets the lectureLocation instance variable
 	 */
@@ -49,6 +51,7 @@ public class School extends BasicEvent{
 		this.location = location;
 	}
 
+	
 	/** Getter for the lecture time instance variable
 	 * @return returns the lectureTime instance variable
 	 */
@@ -56,6 +59,7 @@ public class School extends BasicEvent{
 		return time;
 	}
 
+	
 	/** Setter for the lecture time instance variable
 	 * @param lectureTime sets the lectureTime instance variable
 	 */

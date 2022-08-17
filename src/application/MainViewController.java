@@ -47,7 +47,7 @@ public class MainViewController implements Initializable {
 	private ObservableList<BasicCalendar> calendars = calendarList.getCalendars();
 	
 	
-	// create instance variable that keeps track of which calendar events are being displayed
+	// create variable that keeps track of which calendar is being displayed in GUI
 	private BasicCalendar displayedCalendar = new BasicCalendar();
 	
 	
@@ -103,7 +103,7 @@ public class MainViewController implements Initializable {
     @FXML
     private void selectCalendar(ActionEvent event) {
     	if (calendarChoiceBox.getValue() == null);	// A calendar must be selected in the choicebox
-    	else {				// update the various nodes in the GUI to display the correct calendar
+    	else {							// update the various nodes in the GUI to display the correct calendar
     		listViewEvents.setItems(calendars.get(calendarChoiceBox.getSelectionModel().
     				getSelectedIndex()).getEvents());
     		deleteEventChoiceBox.setItems(calendars.get(calendarChoiceBox.getSelectionModel().
@@ -136,13 +136,11 @@ public class MainViewController implements Initializable {
     		errorLabel.setText("Choose a calendar to add the event");
     	}
     	else {				// Add the event, change the GUI, and save to the database
-    		errorLabel.setText("");
+    		
     		listViewEvents.getItems().add(new BasicEvent(descriptionTextField.getText(), datePicker.getValue()));
     		deleteEventChoiceBox.setItems(calendars.get(calendarChoiceBox.getSelectionModel().
     				getSelectedIndex()).getEvents());
-	    	descriptionTextField.setText("");
-	    	datePicker.setValue(null);
-	    	calendarList.saveDataBase();
+	    	refresh();
     	}
     }
     
@@ -200,6 +198,7 @@ public class MainViewController implements Initializable {
     	rootPane.getChildren().setAll(pane);		// set the rootpane to the new FXML file
     }
     
+    
     /** Change the view to a type view where you can add more different types
      * of events. This other view has its own FXML file and controller.
      * This code is from from https://www.youtube.com/watch?v=9uubyM6oHAY&ab_channel=today%27sIT
@@ -213,5 +212,14 @@ public class MainViewController implements Initializable {
     	
     }
     
+    
+    /** Refreshes nodes on the GUI when called.
+	 */
+	private void refresh() {
+		errorLabel.setText("");
+		descriptionTextField.setText("");
+    	datePicker.setValue(null);
+    	calendarList.saveDataBase();
+	}
     
 }

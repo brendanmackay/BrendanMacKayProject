@@ -8,6 +8,7 @@ public class Flight extends BasicEvent{
 	private String departureAirport;
 	private String arrivalAirport;
 	
+	
 	/**
 	 * One constructor which calls the parents constructor for basic events
 	 * and also assigns values for depature airport and arrival airport.
@@ -33,6 +34,7 @@ public class Flight extends BasicEvent{
 				". Arrival Airport: " + arrivalAirport + ".";
 	}
 
+	
 	/**
 	 * Getter method for the departureAirport instance variable.
 	 * @return the departure airport.
@@ -49,6 +51,7 @@ public class Flight extends BasicEvent{
 		this.departureAirport = departureAirport;
 	}
 
+	
 	/**
 	 * Getter method for the arrival airport instance variable.
 	 * @return the arrival airport
@@ -57,6 +60,7 @@ public class Flight extends BasicEvent{
 		return arrivalAirport;
 	}
 
+	
 	/** Setter method for the arrival airport instance variable
 	 * @param arrivalAirport the arrival airport
 	 */

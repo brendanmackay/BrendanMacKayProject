@@ -29,6 +29,7 @@ import javafx.beans.value.*;
 
 public class TypeViewController implements Initializable {
 		
+	
 	// Initialize calendar data from database
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -36,6 +37,7 @@ public class TypeViewController implements Initializable {
 		eventTypeChoiceBox.getItems().addAll(types);
 		eventTypeChoiceBox.getSelectionModel().selectFirst();
 	}   
+	
 	
 	// Nodes in Individual view fxml
 	@FXML	private ChoiceBox<BasicCalendar> calendarChoiceBox;
@@ -49,22 +51,26 @@ public class TypeViewController implements Initializable {
 	@FXML	private TextField typeBoxOne;
 	@FXML	private TextField typeBoxTwo;
 	
+	
 	// The types of events which can be added from the choiceBox
 	String[] types = {"Basic", "Flight", "Work", "School"};
+	
 	
 	// get stage and scene to switch back to home screen
 	private Stage applicationStage;
 	private Scene scene;
 	
+	
 	// Load from database textfile
 	private CalendarList calendarList = new CalendarList("src\\application\\database.txt");
 		
+	
 	//store data loaded from database into calendars instance of calendarList
 	private ObservableList<BasicCalendar> calendars = calendarList.getCalendars();
 	
+	
 	// create variable that keeps track of which calendar events are being displayed
 	private BasicCalendar displayedCalendar = new BasicCalendar();
-	
 	
 	
 	/** Changes the events displayed in the GUI to the selected calendar 
@@ -90,11 +96,11 @@ public class TypeViewController implements Initializable {
      */
 	@FXML
     private void addEvent(ActionEvent event) {
-    	if (calendars.size() == 0) {
+    	if (calendars.size() == 0) {									// begin with error handling 
     		errorLabel.setText("Create a Calendar first");
     	}
     	else if (descriptionTextField.getText() == "") {
-    		errorLabel.setText("Enter an event description");
+    		errorLabel.setText("Enter an event description");		
     	}
     	else if (descriptionTextField.getText().matches(CalendarList.bannedCharacters) 
     			|| typeBoxOne.getText().matches(CalendarList.bannedCharacters)
@@ -106,7 +112,7 @@ public class TypeViewController implements Initializable {
     		errorLabel.setText("Choose a calendar to add the event");
     	}
     	
-    	else if (eventTypeChoiceBox.getValue().equals("Flight")) {
+    	else if (eventTypeChoiceBox.getValue().equals("Flight")) {		// Add Flight BasicEvent subclass
     		if (datePicker.getValue() == null || typeBoxOne.getText() == null || typeBoxOne.getText() == "" 
     				|| typeBoxTwo.getText() == null || typeBoxTwo.getText() == "") {
     			errorLabel.setText("Enter date, departure, & arrival");
@@ -118,7 +124,7 @@ public class TypeViewController implements Initializable {
     		}
     	
     	}
-    	else if (eventTypeChoiceBox.getValue().equals("Work")) {
+    	else if (eventTypeChoiceBox.getValue().equals("Work")) {		// Add Work BasicEvent subclass
     		if (datePicker.getValue() == null || typeBoxOne.getText() == null || typeBoxOne.getText() == "" 
     				|| typeBoxTwo.getText() == null || typeBoxTwo.getText() == "") {
     			errorLabel.setText("Enter date and shift times");
@@ -130,7 +136,7 @@ public class TypeViewController implements Initializable {
 	    		refresh();
     		}
     	}
-    	else if (eventTypeChoiceBox.getValue().equals("School")) {
+    	else if (eventTypeChoiceBox.getValue().equals("School")) {		// Add School BasicEvent subclass
     		if (datePicker.getValue() == null || typeBoxOne.getText() == null || typeBoxOne.getText() == ""
     				|| typeBoxTwo.getText() == null || typeBoxTwo.getText() == "") {
     			errorLabel.setText("Enter location and time");
@@ -142,7 +148,7 @@ public class TypeViewController implements Initializable {
 	    		refresh();
     		}
     	}
-    	else if (eventTypeChoiceBox.getValue().equals("Basic")) {
+    	else if (eventTypeChoiceBox.getValue().equals("Basic")) {		// Add BasicEvent and not any of the types
     		listViewEvents.getItems().add(new BasicEvent(descriptionTextField.getText(), datePicker.getValue()));
     		deleteEventChoiceBox.setItems(calendars.get(calendarChoiceBox.getSelectionModel().getSelectedIndex()).getEvents());
 	    	refresh();
@@ -202,6 +208,7 @@ public class TypeViewController implements Initializable {
     	}
     }
 	
+    
     /** Change the view to the main view.
      * The main view has a separate controller.
      * This code is from from https://www.youtube.com/watch?v=9uubyM6oHAY&ab_channel=today%27sIT

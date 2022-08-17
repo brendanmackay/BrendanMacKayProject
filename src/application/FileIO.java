@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class FileIO {
 	
-// The code in this FileIO is repurposed from the following website
+// All of the code in this FileIO class is repurposed from the following website
 // from https://www.w3schools.com/java/java_files_read.asp
 	
 	
